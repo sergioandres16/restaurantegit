@@ -1,0 +1,9 @@
+FROM postgres
+ 
+MAINTAINER josue.chaqui@gmail.com
+ 
+ENV POSTGRES_PASSWORD admin
+ 
+ENV POSTGRES_DB sr
+ 
+ADD DDL/DDL_001.sql /docker-entrypoint-initdb.d/ddl.sql

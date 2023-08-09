@@ -1,4 +1,4 @@
-version: '2'
+version: '3.1'
 
 services:
   app:
@@ -9,11 +9,12 @@ services:
     depends_on:
       - db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/SR
-      - SPRING_DATASOURCE_USERNAME=SR
-      - SPRING_DATASOURCE_PASSWORD=u!zEV2NY!k22tWk5
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-          
+      - DATABASE_URL=jdbc:postgresql://db:5432/SR
+      - DATABASE_USERNAME=SR
+      - DATABASE_PASSWORD=u!zEV2NY!k22tWk5
+      - JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - networks_container
   db:
     image: 'postgres:13.1-alpine'
     build:
@@ -23,3 +24,12 @@ services:
       - POSTGRES_USER=SR
       - POSTGRES_PASSWORD=u!zEV2NY!k22tWk5
       - POSTGRES_DB=SR
+    ports:
+      - 5432:5432
+    networks:
+      - networks_container
+networks:
+  networks_container:
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16

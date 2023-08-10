@@ -4,7 +4,7 @@ services:
   app:
     image: 'docker-spring-boot-postgres:latest'
     build:
-      context: SysRes
+      context: ./SysRes
     container_name: SysRes
     depends_on:
       - db
@@ -13,19 +13,21 @@ services:
       - DATABASE_USERNAME=SR
       - DATABASE_PASSWORD=u!zEV2NY!k22tWk5
       - JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - 9091:8080
     networks:
       - networks_container
   db:
     image: 'postgres:13.1-alpine'
     build:
-      context: SysRes
+      context: ./data_base
     container_name: db
     environment:
       - POSTGRES_USER=SR
       - POSTGRES_PASSWORD=u!zEV2NY!k22tWk5
       - POSTGRES_DB=SR
     ports:
-      - 5432:5432
+      - 9090:5432
     networks:
       - networks_container
 networks:
